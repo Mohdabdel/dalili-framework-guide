@@ -41,12 +41,35 @@ function persist() {
   }
 }
 
+/**
+ * Approved snapshots are historical evidence. Whatever path produces a state
+ * object — creation, edit, or restoration from persistence — every snapshot it
+ * carries is sealed before that state becomes visible to the app.
+ */
+function sealApprovedSnapshots(next: FamilyState): FamilyState {
+  return {
+    ...next,
+    participations: (next.participations ?? []).map((p) => ({
+      ...p,
+      snapshots: (p.snapshots ?? []).map((sn) =>
+        Object.isFrozen(sn)
+          ? sn
+          : deepFreeze({
+              ...sn,
+              id: sn.id ?? uid("snap"),
+              approved: true as const,
+            }),
+      ),
+    })),
+  };
+}
+
 export function hydrateFamilyState() {
   if (hydrated || typeof window === "undefined") return;
   hydrated = true;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) state = { ...EMPTY, ...(JSON.parse(raw) as FamilyState) };
+    if (raw) state = sealApprovedSnapshots({ ...EMPTY, ...(JSON.parse(raw) as FamilyState) });
   } catch {
     state = EMPTY;
   }
@@ -54,7 +77,7 @@ export function hydrateFamilyState() {
 }
 
 function setState(next: FamilyState) {
-  state = next;
+  state = sealApprovedSnapshots(next);
   persist();
   emit();
 }
