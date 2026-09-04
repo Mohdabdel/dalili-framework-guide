@@ -127,6 +127,10 @@ export interface VisualSupport {
 
 /** Frozen snapshot created at approval. Never mutated afterwards. */
 export interface Snapshot {
+  /** Stable identity that survives persistence. */
+  id: string;
+  /** Persisted approval marker; approved snapshots are immutable evidence. */
+  approved: true;
   version: number;
   approvedAt: string;
   title: string;

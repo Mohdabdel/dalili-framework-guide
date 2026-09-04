@@ -76,6 +76,8 @@ function Workspace() {
   void preview;
 
   const draftView = buildLearnerView({
+    id: "draft-preview",
+    approved: true,
     version: 0,
     approvedAt: "",
     title: p.title,
