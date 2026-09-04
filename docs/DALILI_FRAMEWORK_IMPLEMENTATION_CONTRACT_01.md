@@ -4,7 +4,7 @@ Implementation-neutral contract. Each item states WHAT must be true, not how the
 project achieved it. Every requirement is independently testable. IDs are stable and must not be
 renumbered.
 
-Total requirements: **72**.
+Total requirements: **82**.
 
 ---
 
