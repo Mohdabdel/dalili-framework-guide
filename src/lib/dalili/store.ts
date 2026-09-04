@@ -88,6 +88,9 @@ function subscribe(listener: () => void) {
 }
 
 const getSnapshot = () => state;
+
+/** Non-hook read of the current family state (used by the validation harness). */
+export const readFamilyState = (): FamilyState => state;
 const getServerSnapshot = () => EMPTY;
 
 export function useFamilyState(): FamilyState {
