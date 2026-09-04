@@ -1,24 +1,43 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { LinkBtn, Page } from "@/components/dalili/ui";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "دليلي — مشاركة في أحداث الحياة اليومية" },
+      {
+        name: "description",
+        content:
+          "دليلي يساعد الأسرة على تهيئة فرص مشاركة الأشخاص ذوي الإعاقة في أحداث حياتهم اليومية.",
+      },
+      { property: "og:title", content: "دليلي — مشاركة في أحداث الحياة اليومية" },
+      {
+        property: "og:description",
+        content:
+          "دليلي يساعد الأسرة على تهيئة فرص مشاركة الأشخاص ذوي الإعاقة في أحداث حياتهم اليومية.",
+      },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <Page width="narrow">
+      <h1 className="font-display text-3xl font-extrabold">دليلي</h1>
+      <p className="mt-3 text-[1.05rem] leading-relaxed text-muted-foreground">
+        دليلي يساعد الأسرة على تهيئة فرص مشاركة الأشخاص ذوي الإعاقة في أحداث حياتهم
+        اليومية.
+      </p>
+      <p className="mt-4 rounded-lg bg-secondary px-4 py-3 text-[0.95rem] leading-relaxed">
+        المشاركة ليست تدريبًا على الحياة… المشاركة هي الحياة نفسها.
+      </p>
+
+      <div className="mt-7">
+        <LinkBtn to="/start" variant="primary" size="lg">
+          ابدأ الآن
+        </LinkBtn>
+      </div>
+    </Page>
   );
 }
