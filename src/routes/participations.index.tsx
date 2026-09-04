@@ -8,7 +8,7 @@ import {
 } from "@/lib/dalili/store";
 import { ChoiceCard, Chip, Empty, Heading, LinkBtn, Page, Section } from "@/components/dalili/ui";
 
-export const Route = createFileRoute("/participations")({
+export const Route = createFileRoute("/participations/")({
   head: () => ({
     meta: [
       { title: "مشاركات الأسرة — دليلي" },

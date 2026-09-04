@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EasyRouteImport } from './routes/easy'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as PlanRouteImport } from './routes/plan'
 import { Route as StartRouteImport } from './routes/start'
+import { Route as ParticipationsIndexRouteImport } from './routes/participations.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,9 +31,19 @@ const ExploreRoute = ExploreRouteImport.update({
   path: '/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlanRoute = PlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StartRoute = StartRouteImport.update({
   id: '/start',
   path: '/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParticipationsIndexRoute = ParticipationsIndexRouteImport.update({
+  id: '/participations/',
+  path: '/participations/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -39,34 +51,50 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/easy': typeof EasyRoute
   '/explore': typeof ExploreRoute
+  '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/participations/': typeof ParticipationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/easy': typeof EasyRoute
   '/explore': typeof ExploreRoute
+  '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/participations': typeof ParticipationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/easy': typeof EasyRoute
   '/explore': typeof ExploreRoute
+  '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/participations/': typeof ParticipationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/easy' | '/explore' | '/start'
+  fullPaths:
+    '/' | '/easy' | '/explore' | '/plan' | '/start' | '/participations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/easy' | '/explore' | '/start'
-  id: '__root__' | '/' | '/easy' | '/explore' | '/start'
+  to: '/' | '/easy' | '/explore' | '/plan' | '/start' | '/participations'
+  id:
+    | '__root__'
+    | '/'
+    | '/easy'
+    | '/explore'
+    | '/plan'
+    | '/start'
+    | '/participations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EasyRoute: typeof EasyRoute
   ExploreRoute: typeof ExploreRoute
+  PlanRoute: typeof PlanRoute
   StartRoute: typeof StartRoute
+  ParticipationsIndexRoute: typeof ParticipationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,11 +120,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plan': {
+      id: '/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof PlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/start': {
       id: '/start'
       path: '/start'
       fullPath: '/start'
       preLoaderRoute: typeof StartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/participations/': {
+      id: '/participations/'
+      path: '/participations'
+      fullPath: '/participations/'
+      preLoaderRoute: typeof ParticipationsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -106,7 +148,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EasyRoute: EasyRoute,
   ExploreRoute: ExploreRoute,
+  PlanRoute: PlanRoute,
   StartRoute: StartRoute,
+  ParticipationsIndexRoute: ParticipationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
