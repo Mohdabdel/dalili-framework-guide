@@ -14,6 +14,7 @@ import { Route as EasyRouteImport } from './routes/easy'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as PlanRouteImport } from './routes/plan'
 import { Route as StartRouteImport } from './routes/start'
+import { Route as ValidationRouteImport } from './routes/validation'
 import { Route as CardCardIdRouteImport } from './routes/card.$cardId'
 import { Route as ParticipationsIndexRouteImport } from './routes/participations.index'
 import { Route as ParticipationsIdRouteImport } from './routes/participations.$id'
@@ -43,6 +44,11 @@ const StartRoute = StartRouteImport.update({
   path: '/start',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ValidationRoute = ValidationRouteImport.update({
+  id: '/validation',
+  path: '/validation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CardCardIdRoute = CardCardIdRouteImport.update({
   id: '/card/$cardId',
   path: '/card/$cardId',
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/validation': typeof ValidationRoute
   '/card/$cardId': typeof CardCardIdRoute
   '/participations/$id': typeof ParticipationsIdRoute
   '/participations/': typeof ParticipationsIndexRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/validation': typeof ValidationRoute
   '/card/$cardId': typeof CardCardIdRoute
   '/participations/$id': typeof ParticipationsIdRoute
   '/participations': typeof ParticipationsIndexRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/validation': typeof ValidationRoute
   '/card/$cardId': typeof CardCardIdRoute
   '/participations/$id': typeof ParticipationsIdRoute
   '/participations/': typeof ParticipationsIndexRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/plan'
     | '/start'
+    | '/validation'
     | '/card/$cardId'
     | '/participations/$id'
     | '/participations/'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/plan'
     | '/start'
+    | '/validation'
     | '/card/$cardId'
     | '/participations/$id'
     | '/participations'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/plan'
     | '/start'
+    | '/validation'
     | '/card/$cardId'
     | '/participations/$id'
     | '/participations/'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   PlanRoute: typeof PlanRoute
   StartRoute: typeof StartRoute
+  ValidationRoute: typeof ValidationRoute
   CardCardIdRoute: typeof CardCardIdRoute
   ParticipationsIdRoute: typeof ParticipationsIdRoute
   ParticipationsIndexRoute: typeof ParticipationsIndexRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StartRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/validation': {
+      id: '/validation'
+      path: '/validation'
+      fullPath: '/validation'
+      preLoaderRoute: typeof ValidationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/card/$cardId': {
       id: '/card/$cardId'
       path: '/card/$cardId'
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   PlanRoute: PlanRoute,
   StartRoute: StartRoute,
+  ValidationRoute: ValidationRoute,
   CardCardIdRoute: CardCardIdRoute,
   ParticipationsIdRoute: ParticipationsIdRoute,
   ParticipationsIndexRoute: ParticipationsIndexRoute,
