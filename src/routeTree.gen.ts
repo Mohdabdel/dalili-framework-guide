@@ -14,7 +14,9 @@ import { Route as EasyRouteImport } from './routes/easy'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as PlanRouteImport } from './routes/plan'
 import { Route as StartRouteImport } from './routes/start'
+import { Route as CardCardIdRouteImport } from './routes/card.$cardId'
 import { Route as ParticipationsIndexRouteImport } from './routes/participations.index'
+import { Route as ParticipationsIdRouteImport } from './routes/participations.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,9 +43,19 @@ const StartRoute = StartRouteImport.update({
   path: '/start',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CardCardIdRoute = CardCardIdRouteImport.update({
+  id: '/card/$cardId',
+  path: '/card/$cardId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ParticipationsIndexRoute = ParticipationsIndexRouteImport.update({
   id: '/participations/',
   path: '/participations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParticipationsIdRoute = ParticipationsIdRouteImport.update({
+  id: '/participations/$id',
+  path: '/participations/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -53,6 +65,8 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/card/$cardId': typeof CardCardIdRoute
+  '/participations/$id': typeof ParticipationsIdRoute
   '/participations/': typeof ParticipationsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +75,8 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/card/$cardId': typeof CardCardIdRoute
+  '/participations/$id': typeof ParticipationsIdRoute
   '/participations': typeof ParticipationsIndexRoute
 }
 export interface FileRoutesById {
@@ -70,14 +86,31 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/plan': typeof PlanRoute
   '/start': typeof StartRoute
+  '/card/$cardId': typeof CardCardIdRoute
+  '/participations/$id': typeof ParticipationsIdRoute
   '/participations/': typeof ParticipationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/easy' | '/explore' | '/plan' | '/start' | '/participations/'
+    | '/'
+    | '/easy'
+    | '/explore'
+    | '/plan'
+    | '/start'
+    | '/card/$cardId'
+    | '/participations/$id'
+    | '/participations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/easy' | '/explore' | '/plan' | '/start' | '/participations'
+  to:
+    | '/'
+    | '/easy'
+    | '/explore'
+    | '/plan'
+    | '/start'
+    | '/card/$cardId'
+    | '/participations/$id'
+    | '/participations'
   id:
     | '__root__'
     | '/'
@@ -85,6 +118,8 @@ export interface FileRouteTypes {
     | '/explore'
     | '/plan'
     | '/start'
+    | '/card/$cardId'
+    | '/participations/$id'
     | '/participations/'
   fileRoutesById: FileRoutesById
 }
@@ -94,6 +129,8 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   PlanRoute: typeof PlanRoute
   StartRoute: typeof StartRoute
+  CardCardIdRoute: typeof CardCardIdRoute
+  ParticipationsIdRoute: typeof ParticipationsIdRoute
   ParticipationsIndexRoute: typeof ParticipationsIndexRoute
 }
 
@@ -134,11 +171,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StartRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/card/$cardId': {
+      id: '/card/$cardId'
+      path: '/card/$cardId'
+      fullPath: '/card/$cardId'
+      preLoaderRoute: typeof CardCardIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/participations/': {
       id: '/participations/'
       path: '/participations'
       fullPath: '/participations/'
       preLoaderRoute: typeof ParticipationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/participations/$id': {
+      id: '/participations/$id'
+      path: '/participations/$id'
+      fullPath: '/participations/$id'
+      preLoaderRoute: typeof ParticipationsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -150,6 +201,8 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   PlanRoute: PlanRoute,
   StartRoute: StartRoute,
+  CardCardIdRoute: CardCardIdRoute,
+  ParticipationsIdRoute: ParticipationsIdRoute,
   ParticipationsIndexRoute: ParticipationsIndexRoute,
 }
 export const routeTree = rootRouteImport
