@@ -299,6 +299,8 @@ export function approve(id: string): number {
   if (!p) return 0;
   const version = p.snapshots.length + 1;
   const snapshot: Snapshot = deepFreeze({
+    id: uid("snap"),
+    approved: true as const,
     version,
     approvedAt: now(),
     title: p.draft.familyTitle ?? p.title,
